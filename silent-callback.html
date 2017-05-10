@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.auth0.com/js/auth0/8.6.1/auth0.min.js"></script>
+    <script type="text/javascript">
+      var webAuth = new auth0.WebAuth({
+        domain: '****',
+        clientID: '****'
+      });
+      var result = webAuth.parseHash(window.location.hash, function(err, data) {
+        parent.postMessage(err || data, "http://localhost:3000");
+      });
+    </script>
+  </head>
+  <body></body>
+</html>

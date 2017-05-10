@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.auth0.com/js/auth0/8.6.1/auth0.min.js"></script>
+  </head>
+  <body>
+    <button id="logout">Logout</button>
+
+    <script type="text/javascript">
+      var webAuth = new auth0.WebAuth({
+        domain: '****',
+        clientID: '****',
+        responseType: 'token id_token',
+        redirectUri: 'http://localhost:3000'
+      })
+
+      webAuth.renewAuth({
+        scope: 'openid',
+        redirectUri: 'http://localhost:3000/silent-callback.html',
+        usePostMessage: false
+      }, function (err, authResult) {
+        if (err && err.error === 'login_required') {
+          webAuth.authorize()
+        }
+
+        console.log(err, authResult)
+      })
+
+      document.getElementById('logout').addEventListener('click', function () {
+        webAuth.logout({
+          returnTo: 'http://localhost:3000'
+        })
+      })
+    </script>
+  </body>
+</html>
